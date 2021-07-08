@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=230 lang=javascript
+ * @lc app=leetcode.cn id=538 lang=javascript
  *
- * [230] 二叉搜索树中第K小的元素
+ * [538] 把二叉搜索树转换为累加树
  */
 
 // @lc code=start
@@ -15,20 +15,18 @@
  */
 /**
  * @param {TreeNode} root
- * @param {number} k
- * @return {number}
+ * @return {TreeNode}
  */
-var kthSmallest = function (root, k) {
-  const sort = [];
+var convertBST = function (root) {
+  let sum = 0;
   const traverse = (root) => {
-    if (!root) return;
-    traverse(root.left);
-    if (sort.length < k) {
-      sort.push(root.val);
-    }
+    if (!root) return root;
     traverse(root.right);
+    sum += root.val;
+    root.val = sum;
+    traverse(root.left);
   };
   traverse(root);
-  return sort[k - 1];
+  return root;
 };
 // @lc code=end
